@@ -163,7 +163,7 @@
           <!-- Salary -->
           <div class="salary-section">
             <div class="salary-info">
-              <i class="pi pi-euro salary-icon"></i>
+              <i class="pi pi-dollar salary-icon"></i>
               <span class="salary-text">{{ formatSalary(job.salary_min, job.salary_max) }}</span>
             </div>
           </div>
@@ -266,6 +266,13 @@
   [job]="selectedJob"
   (applicationSubmitted)="onApplicationSubmitted()">
 </app-job-application-form>
+
+<!-- Job Detail Modal -->
+<app-job-detail-modal
+  [(visible)]="showJobDetailModal"
+  [job]="selectedJobForDetail"
+  (applyToJob)="onJobDetailApply($event)">
+</app-job-detail-modal>
 
 <!-- Toast for messages -->
 <p-toast></p-toast>

@@ -1,0 +1,150 @@
+<!-- Generated with AI assistance - Job Detail Modal Template -->
+<p-dialog 
+  header="Detalles del Trabajo"
+  [(visible)]="visible"
+  (onHide)="onDialogHide()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="job-detail-dialog"
+  [style]="{width: '900px', maxWidth: '95vw'}"
+  [showHeader]="true"
+  [closable]="true">
+  
+  <div class="job-detail-content" *ngIf="job">
+    
+    <!-- Header Section -->
+    <div class="job-header">
+      <div class="job-title-section">
+        <h2 class="job-title">{{ job.title }}</h2>
+        <div class="job-company">
+          <i class="pi pi-building company-icon"></i>
+          <span class="company-name">{{ job.created_by_name }}</span>
+        </div>
+      </div>
+      <div class="job-category-badge">
+        <p-tag 
+          [value]="getCategoryLabel(job.category)"
+          severity="info"
+          styleClass="category-tag-large">
+        </p-tag>
+      </div>
+    </div>
+
+    <!-- Key Information Cards -->
+    <div class="info-cards-grid">
+      <!-- Location Card -->
+      <div class="info-card location-card">
+        <div class="card-icon">
+          <i class="pi pi-map-marker"></i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">Ubicación</h4>
+          <p class="card-value">{{ job.location }}</p>
+        </div>
+      </div>
+
+      <!-- Salary Card -->
+      <div class="info-card salary-card">
+        <div class="card-icon">
+          <i class="pi pi-dollar"></i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">Salario</h4>
+          <p class="card-value">{{ formatSalary(job.salary_min, job.salary_max) }}</p>
+        </div>
+      </div>
+
+      <!-- Applications Card -->
+      <div class="info-card applications-card">
+        <div class="card-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">Aplicaciones</h4>
+          <p class="card-value">{{ job.applications_count }} candidatos</p>
+        </div>
+      </div>
+
+      <!-- Date Card -->
+      <div class="info-card date-card">
+        <div class="card-icon">
+          <i class="pi pi-calendar"></i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">Publicado</h4>
+          <p class="card-value">{{ formatDate(job.created_at) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Description Section -->
+    <div class="detail-section">
+      <div class="section-header">
+        <i class="pi pi-file-edit section-icon"></i>
+        <h3 class="section-title">Descripción del Trabajo</h3>
+      </div>
+      <div class="section-content">
+        <p class="description-text">{{ job.description }}</p>
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="additional-info">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">ID del Trabajo:</span>
+          <span class="info-value">#{{ job.id }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Categoría:</span>
+          <span class="info-value">{{ getCategoryLabel(job.category) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Fecha de Publicación:</span>
+          <span class="info-value">{{ formatDate(job.created_at) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Empresa:</span>
+          <span class="info-value">{{ job.created_by_name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta-section" *ngIf="canApply()">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h4>¿Te interesa esta oportunidad?</h4>
+          <p>Aplica ahora y forma parte de nuestro equipo</p>
+        </div>
+        <p-button 
+          label="Aplicar Ahora"
+          icon="pi pi-send"
+          styleClass="apply-cta-button"
+          (onClick)="onApplyClick()">
+        </p-button>
+      </div>
+    </div>
+
+    <!-- Login Prompt for Non-authenticated Users -->
+    <div class="login-prompt" *ngIf="!authService.isAuthenticated()">
+      <div class="prompt-content">
+        <i class="pi pi-info-circle prompt-icon"></i>
+        <div class="prompt-text">
+          <h4>¿Quieres aplicar a este trabajo?</h4>
+          <p>Inicia sesión o regístrate para enviar tu aplicación</p>
+        </div>
+        <div class="prompt-actions">
+          <p-button 
+            label="Iniciar Sesión"
+            icon="pi pi-sign-in"
+            styleClass="login-cta-button"
+            routerLink="/login">
+          </p-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</p-dialog> 

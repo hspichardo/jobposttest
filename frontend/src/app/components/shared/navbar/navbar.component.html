@@ -16,6 +16,41 @@
     <ng-template pTemplate="end">
       <!-- User authenticated section -->
       <div class="navbar-actions" *ngIf="authService.isAuthenticated() && (currentUser$ | async) as user">
+        
+        <!-- Menú Admin para administradores -->
+        <div class="admin-menu" *ngIf="user.role === 'admin'">
+          <div class="admin-menu-wrapper">
+            <p-button 
+              label="Admin"
+              icon="pi pi-cog"
+              styleClass="p-button-outlined p-button-sm admin-menu-button"
+              (click)="toggleAdminMenu($event)">
+            </p-button>
+            
+            <!-- Admin Dropdown -->
+            <div class="admin-dropdown" [class.show]="showAdminMenu">
+              <div class="dropdown-item" (click)="navigateToAdminRoute('/admin/jobs')">
+                <i class="pi pi-briefcase"></i>
+                <span>Gestión de Trabajos</span>
+              </div>
+              <div class="dropdown-item" (click)="navigateToAdminRoute('/admin/jobs/new')">
+                <i class="pi pi-plus"></i>
+                <span>Crear Trabajo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mis Aplicaciones para candidatos -->
+        <div class="my-applications-menu" *ngIf="user.role === 'applicant'">
+          <p-button 
+            label="Mis Aplicaciones"
+            icon="pi pi-file-o"
+            styleClass="p-button-outlined p-button-sm my-applications-button"
+            routerLink="/my-applications">
+          </p-button>
+        </div>
+        
         <div class="user-menu-wrapper">
           <div class="user-info" (click)="toggleUserMenu()">
             <div class="user-avatar">

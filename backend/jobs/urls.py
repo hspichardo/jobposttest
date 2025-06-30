@@ -5,12 +5,14 @@ from . import views
 urlpatterns = [
     # Public job endpoints
     path('jobs/', views.JobPostListView.as_view(), name='job_list'),
-    path('admin/jobs/<int:pk>/', views.JobPostDetailView.as_view(), name='job_detail'),
+    path('jobs/<int:pk>/', views.JobPostDetailView.as_view(), name='job_detail'),
     
     # Admin job management endpoints
+    path('admin/jobs/<int:pk>/', views.JobAdminPostDetailView.as_view(), name='job_admin_detail'),
     path('admin/jobs/', views.AdminJobPostListView.as_view(), name='admin_job_list'),
     path('admin/jobs/create/', views.JobPostCreateView.as_view(), name='job_create'),
     path('admin/jobs/<int:pk>/update/', views.JobPostUpdateView.as_view(), name='job_update'),
+    path('admin/jobs/<int:pk>/toggle-status/', views.toggle_job_status, name='job_toggle_status'),
     path('admin/jobs/<int:pk>/delete/', views.JobPostDeleteView.as_view(), name='job_delete'),
     path('admin/jobs/<int:job_id>/applications/', views.job_applications, name='job_applications'),
     

@@ -48,9 +48,9 @@
               <span class="detail-text">{{ application.job_post.location }}</span>
             </div>
             
-            <div class="detail-item">
-              <i class="pi pi-euro detail-icon"></i>
-              <span class="detail-text">{{ formatSalary(application.job_post.salary_min || 0, application.job_post.salary_max || 0) }}</span>
+            <div class="meta-item">
+              <i class="pi pi-dollar"></i>
+              <span>{{ formatSalary(application.job_post.salary_min, application.job_post.salary_max) }}</span>
             </div>
           </div>
 

@@ -41,6 +41,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { MyApplicationsComponent } from './components/jobs/my-applications/my-applications.component';
 import { JobApplicationFormComponent } from './components/jobs/job-application-form/job-application-form.component';
+import { JobDetailModalComponent } from './components/jobs/job-detail-modal/job-detail-modal.component';
 
 // Services and Interceptors
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -56,7 +57,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     NavbarComponent,
     LoadingComponent,
     MyApplicationsComponent,
-    JobApplicationFormComponent
+    JobApplicationFormComponent,
+    JobDetailModalComponent
   ],
   imports: [
     BrowserModule,

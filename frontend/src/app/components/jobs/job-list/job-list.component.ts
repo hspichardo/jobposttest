@@ -36,6 +36,10 @@ export class JobListComponent implements OnInit {
   // Application Modal
   showApplicationModal = false;
   selectedJob: JobPostList | null = null;
+  
+  // Job Detail Modal
+  showJobDetailModal = false;
+  selectedJobForDetail: JobPostList | null = null;
 
   constructor(
     private jobService: JobService,
@@ -134,16 +138,16 @@ export class JobListComponent implements OnInit {
 
   onApplicationSubmitted(): void {
     this.loadJobs(); // Refresh the job list to update application counts
-    this.messageService.add({
-      severity: 'success',
-      summary: '¡Éxito!',
-      detail: 'Tu aplicación ha sido enviada correctamente'
-    });
   }
 
   viewJobDetail(job: JobPostList): void {
-    // Implement job detail view
-    console.log('Viewing job detail:', job);
+    this.selectedJobForDetail = job;
+    this.showJobDetailModal = true;
+  }
+
+  onJobDetailApply(job: JobPostList): void {
+    this.selectedJob = job;
+    this.showApplicationModal = true;
   }
 
   canApply(): boolean {
@@ -174,13 +178,13 @@ export class JobListComponent implements OnInit {
 
   formatSalary(min?: number, max?: number): string {
     if (min && max) {
-      return `€${min.toLocaleString()} - €${max.toLocaleString()}`;
+      return `$${min.toLocaleString()} - $${max.toLocaleString()} USD`;
     } else if (min) {
-      return `Desde €${min.toLocaleString()}`;
+      return `Desde $${min.toLocaleString()} USD`;
     } else if (max) {
-      return `Hasta €${max.toLocaleString()}`;
+      return `Hasta $${max.toLocaleString()} USD`;
     }
-    return 'No especificado';
+    return 'Salario a negociar';
   }
 
   truncateText(text: string, maxLength: number): string {

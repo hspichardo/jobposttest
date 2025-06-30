@@ -12,6 +12,7 @@ from .serializers import (
     JobPostSerializer,
     JobPostCreateUpdateSerializer,
     JobPostListSerializer,
+    JobPostStatusUpdateSerializer,
     ApplicationSerializer,
     ApplicationCreateSerializer,
     ApplicationUpdateSerializer,
@@ -41,6 +42,14 @@ class JobPostDetailView(generics.RetrieveAPIView):
     queryset = JobPost.objects.filter(is_active=True)
     serializer_class = JobPostSerializer
     permission_classes = [AllowAny]
+
+class JobAdminPostDetailView(generics.RetrieveAPIView):
+    """
+    API view for job post detail (public access)
+    """
+    queryset = JobPost.objects.filter()
+    serializer_class = JobPostSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class JobPostCreateView(generics.CreateAPIView):
@@ -72,6 +81,19 @@ class JobPostUpdateView(generics.UpdateAPIView):
         if not (self.request.user.is_admin or obj.created_by == self.request.user):
             raise permissions.PermissionDenied("No tienes permisos para editar esta oferta")
         return obj
+    
+    def patch(self, request, *args, **kwargs):
+        """
+        Handle partial updates
+        """
+        return self.partial_update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Override to handle partial updates properly
+        """
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
 
 
 class JobPostDeleteView(generics.DestroyAPIView):
@@ -226,4 +248,44 @@ def job_applications(request, job_id):
     job_post = get_object_or_404(JobPost, id=job_id)
     applications = Application.objects.filter(job_post=job_post)
     serializer = ApplicationSerializer(applications, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK) 
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def toggle_job_status(request, pk):
+    """
+    API view for toggling job post status (admin only)
+    """
+    if not request.user.is_admin:
+        return Response({
+            'error': 'Solo los administradores pueden cambiar el estado de las ofertas'
+        }, status=status.HTTP_403_FORBIDDEN)
+    
+    try:
+        job_post = JobPost.objects.get(pk=pk)
+    except JobPost.DoesNotExist:
+        return Response({
+            'error': 'Oferta de trabajo no encontrada'
+        }, status=status.HTTP_404_NOT_FOUND)
+    
+    # Only admins or the creator can update
+    if not (request.user.is_admin or job_post.created_by == request.user):
+        return Response({
+            'error': 'No tienes permisos para editar esta oferta'
+        }, status=status.HTTP_403_FORBIDDEN)
+    
+    serializer = JobPostStatusUpdateSerializer(
+        job_post, 
+        data=request.data, 
+        partial=True
+    )
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response({
+            'message': 'Estado actualizado exitosamente',
+            'is_active': serializer.data['is_active']
+        }, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

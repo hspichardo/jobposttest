@@ -95,14 +95,14 @@ export class MyApplicationsComponent implements OnInit {
     });
   }
 
-  formatSalary(min: number, max: number): string {
+  formatSalary(min?: number, max?: number): string {
     if (min && max) {
-      return `€${min.toLocaleString()} - €${max.toLocaleString()}`;
+      return `$${min.toLocaleString()} - $${max.toLocaleString()} USD`;
     } else if (min) {
-      return `Desde €${min.toLocaleString()}`;
+      return `Desde $${min.toLocaleString()} USD`;
     } else if (max) {
-      return `Hasta €${max.toLocaleString()}`;
+      return `Hasta $${max.toLocaleString()} USD`;
     }
-    return 'No especificado';
+    return 'Salario a negociar';
   }
 } 

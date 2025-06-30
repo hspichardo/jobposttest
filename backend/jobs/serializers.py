@@ -49,8 +49,14 @@ class JobPostCreateUpdateSerializer(serializers.ModelSerializer):
         return value
     
     def validate(self, attrs):
+        # Solo validar si ambos campos están presentes
         salary_min = attrs.get('salary_min')
         salary_max = attrs.get('salary_max')
+        
+        # En updates parciales, obtener valores existentes si no están en attrs
+        if self.instance:
+            salary_min = salary_min if salary_min is not None else self.instance.salary_min
+            salary_max = salary_max if salary_max is not None else self.instance.salary_max
         
         if salary_min and salary_max and salary_min > salary_max:
             raise serializers.ValidationError(
@@ -58,6 +64,15 @@ class JobPostCreateUpdateSerializer(serializers.ModelSerializer):
             )
         
         return attrs
+
+
+class JobPostStatusUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating only the status of a JobPost
+    """
+    class Meta:
+        model = JobPost
+        fields = ['is_active']
 
 
 class JobPostListSerializer(serializers.ModelSerializer):
