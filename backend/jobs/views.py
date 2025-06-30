@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 from .models import JobPost, Application
 from .serializers import (
@@ -21,6 +23,33 @@ from .serializers import (
 from .permissions import IsAdminOrReadOnly, IsOwnerOrAdmin
 
 
+@extend_schema_view(
+    get=extend_schema(
+        summary="Listar trabajos públicos",
+        description="Obtiene una lista paginada de todas las ofertas de trabajo activas disponibles públicamente",
+        tags=["Trabajos"],
+        parameters=[
+            OpenApiParameter(
+                name='category',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por categoría de trabajo'
+            ),
+            OpenApiParameter(
+                name='location',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por ubicación'
+            ),
+            OpenApiParameter(
+                name='search',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Buscar en título, descripción y ubicación'
+            ),
+        ]
+    )
+)
 class JobPostListView(generics.ListAPIView):
     """
     API view for listing job posts (public access)
@@ -35,6 +64,11 @@ class JobPostListView(generics.ListAPIView):
     ordering = ['-created_at']
 
 
+@extend_schema(
+    summary="Detalle de trabajo",
+    description="Obtiene los detalles completos de una oferta de trabajo específica",
+    tags=["Trabajos"]
+)
 class JobPostDetailView(generics.RetrieveAPIView):
     """
     API view for job post detail (public access)
@@ -52,6 +86,11 @@ class JobAdminPostDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
 
+@extend_schema(
+    summary="Crear trabajo",
+    description="Crea una nueva oferta de trabajo (solo administradores)",
+    tags=["Admin", "Trabajos"]
+)
 class JobPostCreateView(generics.CreateAPIView):
     """
     API view for creating job posts (admin only)

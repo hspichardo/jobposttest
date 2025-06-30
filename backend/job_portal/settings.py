@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'drf_spectacular',
 ]
 
 LOCAL_APPS = [
@@ -158,6 +159,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Simple JWT
@@ -193,4 +195,63 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 # Custom User Model
-AUTH_USER_MODEL = 'users.User' 
+AUTH_USER_MODEL = 'users.User'
+
+# drf-spectacular settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Job Portal API',
+    'DESCRIPTION': 'API completa para el portal de empleos con autenticación JWT, gestión de trabajos y aplicaciones',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/',
+    'CONTACT': {
+        'name': 'Equipo de Desarrollo',
+        'email': 'dev@jobportal.com',
+    },
+    'LICENSE': {
+        'name': 'MIT License',
+    },
+    'EXTERNAL_DOCS': {
+        'description': 'Documentación completa',
+        'url': 'https://github.com/your-repo/job-portal',
+    },
+    'TAGS': [
+        {
+            'name': 'Autenticación',
+            'description': 'Endpoints de login, logout y gestión de tokens JWT'
+        },
+        {
+            'name': 'Trabajos',
+            'description': 'Gestión de ofertas de trabajo (CRUD)'
+        },
+        {
+            'name': 'Aplicaciones',
+            'description': 'Gestión de aplicaciones a trabajos'
+        },
+        {
+            'name': 'Usuarios',
+            'description': 'Gestión de perfiles de usuario'
+        },
+        {
+            'name': 'Admin',
+            'description': 'Endpoints administrativos'
+        }
+    ],
+    'SERVERS': [
+        {
+            'url': 'http://localhost:8000/api',
+            'description': 'Servidor de desarrollo'
+        },
+        {
+            'url': 'https://your-domain.com/api',
+            'description': 'Servidor de producción'
+        }
+    ],
+    'SECURITY': [
+        {
+            'bearerAuth': []
+        }
+    ],
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SORT_OPERATIONS': True,
+} 

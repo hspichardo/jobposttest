@@ -109,4 +109,8 @@ export class JobService {
   getJobLocations(): Observable<string[]> {
     return this.http.get<string[]>(`${environment.apiUrl}/jobs/locations/`);
   }
+
+  toggleJobStatus(id: number): Observable<JobPost> {
+    return this.http.patch<JobPost>(`${environment.apiUrl}/admin/jobs/${id}/toggle-status/`, {});
+  }
 } 

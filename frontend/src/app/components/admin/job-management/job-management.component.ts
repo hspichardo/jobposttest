@@ -131,7 +131,7 @@ export class JobManagementComponent implements OnInit {
 
   toggleJobStatus(job: JobPost): void {
     const newStatus = !job.is_active;
-    this.jobService.updateJob(job.id, { is_active: newStatus }).subscribe({
+    this.jobService.toggleJobStatus(job.id).subscribe({
       next: () => {
         job.is_active = newStatus;
         this.messageService.add({
