@@ -1,0 +1,274 @@
+<!-- Generated with AI assistance - Job list template with filters and cards -->
+<div class="job-list-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Ofertas de Trabajo</h1>
+      <p class="page-subtitle">Encuentra tu trabajo ideal</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ totalRecords }}</span>
+        <span class="stat-label">ofertas disponibles</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enhanced Filters Card -->
+  <p-card styleClass="filters-card mb-4">
+    <ng-template pTemplate="header">
+      <div class="filters-header">
+        <div class="filters-title">
+          <i class="pi pi-filter-fill"></i>
+          <h3>Filtros de Búsqueda</h3>
+        </div>
+        <p-button 
+          *ngIf="searchTerm || selectedCategory || selectedLocation"
+          icon="pi pi-times" 
+          label="Limpiar"
+          severity="secondary"
+          styleClass="p-button-sm p-button-outlined"
+          (onClick)="clearFilters()">
+        </p-button>
+      </div>
+    </ng-template>
+
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label for="search" class="filter-label">
+          <i class="pi pi-search"></i>
+          Buscar trabajo
+        </label>
+        <div class="search-wrapper">
+          <input 
+            type="text" 
+            id="search"
+            pInputText 
+            [(ngModel)]="searchTerm" 
+            placeholder="Título, empresa, descripción..."
+            class="search-input"
+            (keyup.enter)="onSearch()"
+          />
+          <p-button 
+            icon="pi pi-search" 
+            styleClass="search-button"
+            (onClick)="onSearch()">
+          </p-button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label for="category" class="filter-label">
+          <i class="pi pi-tags"></i>
+          Categoría
+        </label>
+        <p-dropdown
+          id="category"
+          [options]="categories"
+          [(ngModel)]="selectedCategory"
+          optionLabel="label"
+          placeholder="Seleccionar categoría"
+          [showClear]="true"
+          styleClass="category-dropdown"
+          (onChange)="onFilterChange()"
+        ></p-dropdown>
+      </div>
+
+      <div class="filter-group">
+        <label for="location" class="filter-label">
+          <i class="pi pi-map-marker"></i>
+          Ubicación
+        </label>
+        <input 
+          type="text" 
+          id="location"
+          pInputText 
+          [(ngModel)]="selectedLocation" 
+          placeholder="Ciudad, país..."
+          class="location-input"
+          (keyup.enter)="onSearch()"
+        />
+      </div>
+    </div>
+  </p-card>
+
+  <!-- Active Filters -->
+  <div class="active-filters" *ngIf="searchTerm || selectedCategory || selectedLocation">
+    <span class="filters-label">Filtros activos:</span>
+    <p-chip 
+      *ngIf="searchTerm" 
+      [label]="'Búsqueda: ' + searchTerm" 
+      [removable]="true"
+      (onRemove)="searchTerm = ''; onSearch()">
+    </p-chip>
+    <p-chip 
+      *ngIf="selectedCategory" 
+      [label]="'Categoría: ' + selectedCategory.label" 
+      [removable]="true"
+      (onRemove)="selectedCategory = null; onFilterChange()">
+    </p-chip>
+    <p-chip 
+      *ngIf="selectedLocation" 
+      [label]="'Ubicación: ' + selectedLocation" 
+      [removable]="true"
+      (onRemove)="selectedLocation = ''; onFilterChange()">
+    </p-chip>
+  </div>
+
+  <!-- Results -->
+  <div class="flex justify-content-between align-items-center mb-3">
+    <span class="text-color-secondary">
+      {{ totalRecords }} ofertas encontradas
+    </span>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-section">
+    <app-loading></app-loading>
+    <p class="loading-text">Cargando ofertas...</p>
+  </div>
+
+  <!-- Job Cards Grid -->
+  <div class="jobs-grid" *ngIf="!loading">
+    <div class="job-card-container" *ngFor="let job of jobs">
+      <div class="job-card modern-card">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="job-title-section">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <p class="company-name">{{ job.created_by_name }}</p>
+          </div>
+          <div class="job-category">
+            <p-tag 
+              [value]="getCategoryLabel(job.category)"
+              severity="info"
+              styleClass="category-tag">
+            </p-tag>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <!-- Location -->
+          <div class="job-info-item location-info">
+            <i class="pi pi-map-marker info-icon"></i>
+            <span class="info-text">{{ job.location }}</span>
+          </div>
+
+          <!-- Description -->
+          <div class="job-description">
+            <p>{{ truncateText(job.description, 120) }}</p>
+          </div>
+
+          <!-- Salary -->
+          <div class="salary-section">
+            <div class="salary-info">
+              <i class="pi pi-euro salary-icon"></i>
+              <span class="salary-text">{{ formatSalary(job.salary_min, job.salary_max) }}</span>
+            </div>
+          </div>
+
+          <!-- Job Meta -->
+          <div class="job-meta">
+            <div class="meta-item">
+              <i class="pi pi-calendar meta-icon"></i>
+              <span class="meta-text">{{ formatDate(job.created_at) }}</span>
+            </div>
+            <div class="applications-badge">
+              <p-badge 
+                [value]="job.applications_count.toString()" 
+                severity="success"
+                styleClass="applications-count">
+              </p-badge>
+              <span class="badge-label">aplicaciones</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Actions -->
+        <div class="card-actions">
+          <!-- Primary Action -->
+          <p-button 
+            label="Ver Detalles"
+            icon="pi pi-eye"
+            styleClass="details-button p-button-outlined"
+            (onClick)="viewJobDetail(job)">
+          </p-button>
+          
+          <!-- Secondary Actions -->
+          <div class="action-buttons">
+            <!-- Apply Button for Applicants -->
+            <p-button 
+              *ngIf="canApply()"
+              label="Aplicar"
+              icon="pi pi-send"
+              styleClass="apply-button p-button-success"
+              (onClick)="applyToJob(job, $event)">
+            </p-button>
+            
+            <!-- Login Button for Non-authenticated Users -->
+            <p-button 
+              *ngIf="!authService.isAuthenticated()"
+              label="Iniciar Sesión"
+              icon="pi pi-sign-in"
+              styleClass="login-button p-button-outlined"
+              (onClick)="navigateToLogin()">
+            </p-button>
+
+            <!-- Admin Edit Button -->
+            <p-button 
+              *ngIf="isAdmin()"
+              icon="pi pi-pencil"
+              styleClass="edit-button p-button-warning p-button-outlined"
+              pTooltip="Editar trabajo"
+              [routerLink]="['/admin/jobs', job.id, 'edit']">
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && jobs.length === 0" class="empty-state">
+    <div class="empty-icon">
+      <i class="pi pi-search"></i>
+    </div>
+    <h3 class="empty-title">No se encontraron ofertas</h3>
+    <p class="empty-subtitle">Intenta ajustar los filtros de búsqueda</p>
+    
+    <!-- Create Job Button for Admins -->
+    <p-button 
+      *ngIf="isAdmin()"
+      label="Crear Primera Oferta" 
+      icon="pi pi-plus" 
+      routerLink="/admin/jobs/new"
+      styleClass="create-job-button p-button-lg">
+    </p-button>
+  </div>
+
+  <!-- Enhanced Pagination -->
+  <div *ngIf="!loading && totalRecords > rows" class="pagination-section">
+    <p-paginator
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [first]="first"
+      (onPageChange)="onPageChange($event)"
+      [rowsPerPageOptions]="[10, 20, 50]"
+      styleClass="modern-paginator">
+    </p-paginator>
+  </div>
+</div>
+
+<!-- Job Application Modal -->
+<app-job-application-form
+  [(visible)]="showApplicationModal"
+  [job]="selectedJob"
+  (applicationSubmitted)="onApplicationSubmitted()">
+</app-job-application-form>
+
+<!-- Toast for messages -->
+<p-toast></p-toast>
+
+<!-- Confirmation dialog -->
+<p-confirmDialog></p-confirmDialog> 

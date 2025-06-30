@@ -1,0 +1,111 @@
+<!-- Generated with AI assistance - My Applications template -->
+<div class="my-applications-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Mis Aplicaciones</h1>
+      <p class="page-subtitle">Seguimiento de tus postulaciones</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ applications.length }}</span>
+        <span class="stat-label">aplicaciones enviadas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-section">
+    <app-loading></app-loading>
+    <p class="loading-text">Cargando aplicaciones...</p>
+  </div>
+
+  <!-- Applications List -->
+  <div class="applications-grid" *ngIf="!loading && applications.length > 0">
+    <div class="application-card-container" *ngFor="let application of applications">
+      <div class="application-card modern-card">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="job-info">
+            <h3 class="job-title">{{ application.job_post.title }}</h3>
+            <p class="company-name">{{ application.job_post.created_by.first_name || application.job_post.created_by.username || 'Empresa no especificada' }}</p>
+          </div>
+          <div class="status-badge">
+            <p-tag 
+              [value]="getStatusLabel(application.status)"
+              [severity]="getStatusSeverity(application.status)"
+              styleClass="status-tag">
+            </p-tag>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <!-- Job Details -->
+          <div class="job-details">
+            <div class="detail-item">
+              <i class="pi pi-map-marker detail-icon"></i>
+              <span class="detail-text">{{ application.job_post.location }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <i class="pi pi-euro detail-icon"></i>
+              <span class="detail-text">{{ formatSalary(application.job_post.salary_min || 0, application.job_post.salary_max || 0) }}</span>
+            </div>
+          </div>
+
+          <!-- Application Info -->
+          <div class="application-info">
+            <div class="info-row">
+              <span class="info-label">Fecha de aplicación:</span>
+              <span class="info-value">{{ formatDate(application.submitted_at) }}</span>
+            </div>
+            
+            <div class="info-row" *ngIf="application.cover_letter">
+              <span class="info-label">Carta de presentación:</span>
+              <span class="info-value">Incluida</span>
+            </div>
+          </div>
+
+          <!-- Description Preview -->
+          <div class="job-description" *ngIf="application.job_post.description">
+            <p>{{ application.job_post.description.substring(0, 150) }}...</p>
+          </div>
+        </div>
+
+        <!-- Card Actions -->
+        <div class="card-actions">
+          <p-button 
+            label="Ver Trabajo"
+            icon="pi pi-eye"
+            styleClass="view-job-button p-button-outlined"
+            (onClick)="viewJobDetails(application)">
+          </p-button>
+          
+          <div class="application-meta">
+            <span class="application-id">ID: #{{ application.id }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && applications.length === 0" class="empty-state">
+    <div class="empty-icon">
+      <i class="pi pi-inbox"></i>
+    </div>
+    <h3 class="empty-title">No tienes aplicaciones aún</h3>
+    <p class="empty-subtitle">Explora las ofertas disponibles y aplica a los trabajos que más te interesen</p>
+    
+    <p-button 
+      label="Ver Trabajos Disponibles" 
+      icon="pi pi-briefcase" 
+      routerLink="/jobs"
+      styleClass="browse-jobs-button p-button-lg">
+    </p-button>
+  </div>
+</div>
+
+<!-- Toast for messages -->
+<p-toast></p-toast> 

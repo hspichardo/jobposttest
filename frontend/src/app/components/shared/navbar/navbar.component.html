@@ -1,0 +1,54 @@
+<!-- Generated with AI assistance - Modern Navigation bar template -->
+<nav class="navbar-container">
+  <p-menubar [model]="items" styleClass="custom-menubar">
+    <ng-template pTemplate="start">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <i class="pi pi-briefcase"></i>
+        </div>
+        <div class="brand-text" (click)="router.navigate(['/'])">
+          <span class="brand-title">Portal de Empleo</span>
+          <span class="brand-subtitle">Tu futuro comienza aquí</span>
+        </div>
+      </div>
+    </ng-template>
+    
+    <ng-template pTemplate="end">
+      <!-- User authenticated section -->
+      <div class="navbar-actions" *ngIf="authService.isAuthenticated() && (currentUser$ | async) as user">
+        <div class="user-menu-wrapper">
+          <div class="user-info" (click)="toggleUserMenu()">
+            <div class="user-avatar">
+              <i class="pi pi-user"></i>
+            </div>
+            <div class="user-details">
+              <span class="user-name">{{ user.first_name || user.username }}</span>
+              <span class="user-role" [class]="'role-' + user.role">
+                {{ user.role === 'admin' ? 'Administrador' : 'Candidato' }}
+              </span>
+            </div>
+            <i class="pi pi-chevron-down ml-2 dropdown-icon"></i>
+          </div>
+          
+          <!-- Dropdown menu -->
+          <div class="user-dropdown" [class.show]="showUserMenu">
+            <div class="dropdown-item" (click)="logout()">
+              <i class="pi pi-sign-out"></i>
+              <span>Cerrar Sesión</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Non-authenticated section -->
+      <div class="navbar-actions" *ngIf="!authService.isAuthenticated()">
+        <p-button 
+          label="Iniciar Sesión" 
+          icon="pi pi-sign-in" 
+          styleClass="p-button-outlined p-button-sm login-button"
+          (click)="router.navigate(['/login'])">
+        </p-button>
+      </div>
+    </ng-template>
+  </p-menubar>
+</nav> 

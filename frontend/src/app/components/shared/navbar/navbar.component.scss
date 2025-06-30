@@ -1,0 +1,345 @@
+/* Generated with AI assistance - Modern Navbar component styles */
+
+// Main navbar container
+.navbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// PrimeNG MenuBar overrides
+:host ::ng-deep {
+  .custom-menubar {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem 2rem !important;
+    
+    .p-menubar-root-list {
+      gap: 1.5rem;
+      
+      > .p-menuitem {
+        > .p-menuitem-link {
+          padding: 0.75rem 1.25rem !important;
+          border-radius: 25px !important;
+          color: rgba(255, 255, 255, 0.9) !important;
+          font-weight: 600 !important;
+          font-size: 0.95rem !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+          }
+          
+          .p-menuitem-icon {
+            margin-right: 0.75rem !important;
+            font-size: 1.2rem !important;
+          }
+        }
+        
+        // Submenu dropdown
+        .p-submenu-list {
+          background: white !important;
+          border: none !important;
+          border-radius: 12px !important;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+          padding: 0.75rem 0 !important;
+          margin-top: 0.5rem !important;
+          
+          .p-menuitem-link {
+            color: #334155 !important;
+            padding: 0.75rem 1.5rem !important;
+            font-weight: 500 !important;
+            transition: all 0.2s ease !important;
+            
+            &:hover {
+              background: #f1f5f9 !important;
+              color: #667eea !important;
+              transform: none !important;
+              box-shadow: none !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Brand section styles
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  .brand-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    i {
+      font-size: 1.8rem;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    
+    .brand-title {
+      color: white !important;
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      letter-spacing: -0.02em;
+    }
+    
+    .brand-subtitle {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: -2px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  &:hover {
+    transform: scale(1.02);
+    
+    .brand-icon {
+      background: rgba(255, 255, 255, 0.35);
+      transform: rotate(-3deg);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// User info and actions
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  .user-menu-wrapper {
+    position: relative;
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        
+        i {
+          color: white;
+          font-size: 1.2rem;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+      }
+      
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        
+        .user-name {
+          color: white;
+          font-weight: 700;
+          font-size: 0.95rem;
+          line-height: 1;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-role {
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 3px 10px;
+          border-radius: 15px;
+          line-height: 1;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          
+          &.role-admin {
+            background: #ffc107;
+            color: #1a1a1a;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+          }
+          
+          &.role-applicant {
+            background: #28a745;
+            color: white;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+          }
+        }
+      }
+      
+      .dropdown-icon {
+        color: rgba(255, 255, 255, 0.8);
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover .dropdown-icon {
+        transform: translateY(-1px);
+      }
+    }
+    
+    // Dropdown menu
+    .user-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2000;
+      
+      &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1.25rem;
+        color: #334155;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        margin: 0.25rem;
+        
+        &:hover {
+          background: #f1f5f9;
+          color: #667eea;
+          transform: translateX(4px);
+        }
+        
+        i {
+          font-size: 1rem;
+          width: 18px;
+        }
+        
+        span {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+// Login button overrides
+:host ::ng-deep {
+  .navbar-actions .login-button {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    border-radius: 25px !important;
+    padding: 0.75rem 1.5rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.25) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  :host ::ng-deep .custom-menubar {
+    padding: 0.75rem 1.5rem !important;
+  }
+  
+  .brand-section {
+    .brand-icon {
+      width: 45px;
+      height: 45px;
+      i { font-size: 1.6rem; }
+    }
+    .brand-text .brand-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  :host ::ng-deep .custom-menubar {
+    padding: 0.5rem 1rem !important;
+  }
+  
+  .brand-section {
+    gap: 0.75rem;
+    .brand-text .brand-subtitle {
+      display: none;
+    }
+  }
+  
+  .navbar-actions .user-menu-wrapper .user-info .user-details {
+    display: none;
+  }
+}
+
+// Animation for menu items
+:host ::ng-deep .p-menuitem {
+  transition: all 0.3s ease;
+}
+
+// Smooth transitions
+* {
+  transition: all 0.3s ease;
+} 

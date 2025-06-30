@@ -1,0 +1,246 @@
+<!-- Generated with AI assistance - Job form template with PrimeNG components -->
+<div class="container-fluid p-4">
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h2 class="text-2xl font-bold text-primary">
+      {{ isEditMode ? 'Editar Trabajo' : 'Crear Nuevo Trabajo' }}
+    </h2>
+    <p-button 
+      label="Volver" 
+      icon="pi pi-arrow-left" 
+      styleClass="p-button-outlined"
+      (onClick)="onCancel()">
+    </p-button>
+  </div>
+
+  <div class="grid">
+    <div class="col-12 lg:col-8">
+      <p-card>
+        <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+          <div class="grid p-fluid">
+            
+            <!-- Título -->
+            <div class="col-12">
+              <label for="title" class="block text-900 font-medium mb-2">
+                Título del Trabajo *
+              </label>
+              <input 
+                id="title"
+                type="text" 
+                pInputText 
+                formControlName="title"
+                placeholder="Ej: Desarrollador Full Stack Senior"
+                [class.ng-invalid]="title?.invalid && title?.touched">
+              <small 
+                *ngIf="title?.invalid && title?.touched" 
+                class="p-error block">
+                <span *ngIf="title?.errors?.['required']">El título es requerido</span>
+                <span *ngIf="title?.errors?.['minlength']">El título debe tener al menos 3 caracteres</span>
+                <span *ngIf="title?.errors?.['maxlength']">El título no puede exceder 200 caracteres</span>
+              </small>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="col-12 md:col-6">
+              <label for="location" class="block text-900 font-medium mb-2">
+                Ubicación *
+              </label>
+              <input 
+                id="location"
+                type="text" 
+                pInputText 
+                formControlName="location"
+                placeholder="Ej: Madrid, España"
+                [class.ng-invalid]="location?.invalid && location?.touched">
+              <small 
+                *ngIf="location?.invalid && location?.touched" 
+                class="p-error block">
+                <span *ngIf="location?.errors?.['required']">La ubicación es requerida</span>
+                <span *ngIf="location?.errors?.['maxlength']">La ubicación no puede exceder 100 caracteres</span>
+              </small>
+            </div>
+
+            <!-- Categoría -->
+            <div class="col-12 md:col-6">
+              <label for="category" class="block text-900 font-medium mb-2">
+                Categoría *
+              </label>
+              <p-dropdown 
+                id="category"
+                formControlName="category"
+                [options]="categories" 
+                optionLabel="label" 
+                optionValue="value"
+                placeholder="Seleccionar categoría"
+                styleClass="w-full"
+                [class.ng-invalid]="category?.invalid && category?.touched">
+              </p-dropdown>
+              <small 
+                *ngIf="category?.invalid && category?.touched" 
+                class="p-error block">
+                La categoría es requerida
+              </small>
+            </div>
+
+            <!-- Rango Salarial -->
+            <div class="col-12 md:col-6">
+              <label for="salary_min" class="block text-900 font-medium mb-2">
+                Salario Mínimo (€)
+              </label>
+              <p-inputNumber 
+                id="salary_min"
+                formControlName="salary_min"
+                mode="currency" 
+                currency="EUR" 
+                locale="es-ES"
+                styleClass="w-full"
+                [class.ng-invalid]="salary_min?.invalid && salary_min?.touched">
+              </p-inputNumber>
+              <small 
+                *ngIf="salary_min?.invalid && salary_min?.touched" 
+                class="p-error block">
+                El salario mínimo debe ser mayor a 0
+              </small>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <label for="salary_max" class="block text-900 font-medium mb-2">
+                Salario Máximo (€)
+              </label>
+              <p-inputNumber 
+                id="salary_max"
+                formControlName="salary_max"
+                mode="currency" 
+                currency="EUR" 
+                locale="es-ES"
+                styleClass="w-full"
+                [class.ng-invalid]="salary_max?.invalid && salary_max?.touched">
+              </p-inputNumber>
+              <small 
+                *ngIf="salary_max?.invalid && salary_max?.touched" 
+                class="p-error block">
+                El salario máximo debe ser mayor a 0
+              </small>
+              <small 
+                *ngIf="jobForm.errors?.['salaryRange']" 
+                class="p-error block">
+                El salario máximo debe ser mayor al mínimo
+              </small>
+            </div>
+
+            <!-- Descripción -->
+            <div class="col-12">
+              <label for="description" class="block text-900 font-medium mb-2">
+                Descripción del Trabajo *
+              </label>
+              <textarea 
+                id="description"
+                pInputTextarea 
+                formControlName="description"
+                rows="5"
+                placeholder="Describe las responsabilidades y tareas del puesto..."
+                styleClass="w-full"
+                [class.ng-invalid]="description?.invalid && description?.touched">
+              </textarea>
+              <small 
+                *ngIf="description?.invalid && description?.touched" 
+                class="p-error block">
+                <span *ngIf="description?.errors?.['required']">La descripción es requerida</span>
+                <span *ngIf="description?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres</span>
+              </small>
+            </div>
+
+            <!-- Requisitos -->
+            <div class="col-12">
+              <label for="requirements" class="block text-900 font-medium mb-2">
+                Requisitos
+              </label>
+              <textarea 
+                id="requirements"
+                pInputTextarea 
+                formControlName="requirements"
+                rows="4"
+                placeholder="Lista los requisitos necesarios para el puesto..."
+                styleClass="w-full">
+              </textarea>
+            </div>
+
+            <!-- Beneficios -->
+            <div class="col-12">
+              <label for="benefits" class="block text-900 font-medium mb-2">
+                Beneficios
+              </label>
+              <textarea 
+                id="benefits"
+                pInputTextarea 
+                formControlName="benefits"
+                rows="3"
+                placeholder="Describe los beneficios que ofrece la empresa..."
+                styleClass="w-full">
+              </textarea>
+            </div>
+
+            <!-- Estado Activo -->
+            <div class="col-12">
+              <div class="field-checkbox">
+                <p-checkbox 
+                  formControlName="is_active" 
+                  [binary]="true" 
+                  inputId="is_active">
+                </p-checkbox>
+                <label for="is_active" class="ml-2">Trabajo activo (visible para candidatos)</label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="flex justify-content-end gap-2 mt-4">
+            <p-button 
+              label="Cancelar" 
+              icon="pi pi-times" 
+              styleClass="p-button-outlined p-button-secondary"
+              type="button"
+              (onClick)="onCancel()">
+            </p-button>
+            <p-button 
+              [label]="isEditMode ? 'Actualizar' : 'Crear'" 
+              [icon]="isEditMode ? 'pi pi-save' : 'pi pi-plus'"
+              type="submit"
+              [loading]="loading"
+              [disabled]="jobForm.invalid">
+            </p-button>
+          </div>
+
+        </form>
+      </p-card>
+    </div>
+
+    <!-- Panel de ayuda -->
+    <div class="col-12 lg:col-4">
+      <p-card header="Consejos para crear un buen trabajo">
+        <ul class="list-none p-0 m-0">
+          <li class="flex align-items-start py-2">
+            <i class="pi pi-check-circle text-green-500 mr-2 mt-1"></i>
+            <span class="text-700">Usa un título claro y específico</span>
+          </li>
+          <li class="flex align-items-start py-2">
+            <i class="pi pi-check-circle text-green-500 mr-2 mt-1"></i>
+            <span class="text-700">Describe claramente las responsabilidades</span>
+          </li>
+          <li class="flex align-items-start py-2">
+            <i class="pi pi-check-circle text-green-500 mr-2 mt-1"></i>
+            <span class="text-700">Especifica los requisitos mínimos</span>
+          </li>
+          <li class="flex align-items-start py-2">
+            <i class="pi pi-check-circle text-green-500 mr-2 mt-1"></i>
+            <span class="text-700">Menciona los beneficios atractivos</span>
+          </li>
+          <li class="flex align-items-start py-2">
+            <i class="pi pi-check-circle text-green-500 mr-2 mt-1"></i>
+            <span class="text-700">Incluye rango salarial si es posible</span>
+          </li>
+        </ul>
+      </p-card>
+    </div>
+  </div>
+</div>

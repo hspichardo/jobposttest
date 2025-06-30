@@ -1,0 +1,405 @@
+/* You can add global styles to this file, and also import other style files */
+/* Generated with AI assistance - Global styles for modern JobPortal UI */
+
+/* Import PrimeNG Theme */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+/* Global Variables */
+:root {
+  --navbar-height: 90px;
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --surface-0: #ffffff;
+  --surface-50: #f8fafc;
+  --surface-100: #f1f5f9;
+  --surface-200: #e2e8f0;
+  --text-color: #334155;
+  --text-color-secondary: #64748b;
+  --border-color: #e2e8f0;
+}
+
+/* Global Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  overflow-x: hidden;
+}
+
+/* Main Content Area */
+.main-content {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 2rem 1rem;
+  margin-top: 0;
+}
+
+/* Container Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-fluid {
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+/* Modern Card Enhancements */
+.p-card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  
+  &:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+  }
+  
+  .p-card-header {
+    padding: 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  }
+  
+  .p-card-body {
+    padding: 0;
+  }
+  
+  .p-card-content {
+    padding: 2rem;
+  }
+}
+
+/* Enhanced Buttons */
+.p-button {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  &.p-button-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.875rem;
+  }
+  
+  &.p-button-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Form Enhancements */
+.p-inputtext,
+.p-dropdown,
+.p-inputtextarea {
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  
+  &:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+.p-dropdown {
+  &.p-focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  }
+}
+
+/* Table Enhancements */
+.p-datatable {
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  .p-datatable-thead > tr > th {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border: none;
+    font-weight: 700;
+    color: var(--text-color);
+    padding: 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .p-datatable-tbody > tr > td {
+    border: none;
+    border-bottom: 1px solid var(--surface-200);
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+  }
+  
+  .p-datatable-tbody > tr:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    transform: scale(1.01);
+  }
+}
+
+/* Paginator Enhancements */
+.p-paginator {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  .p-paginator-pages .p-paginator-page {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #667eea;
+      color: white;
+      transform: scale(1.1);
+    }
+  }
+}
+
+/* Badge and Tag Enhancements */
+.p-badge {
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-tag {
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &.p-tag-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+}
+
+/* Toast Enhancements */
+.p-toast .p-toast-message {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(15px);
+  
+  &.p-toast-message-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  }
+  
+  &.p-toast-message-error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  }
+}
+
+/* Dialog Enhancements */
+.p-dialog {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  
+  .p-dialog-header {
+    border-bottom: 1px solid var(--surface-200);
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .p-dialog-content {
+    padding: 2rem;
+  }
+}
+
+/* Job Card Specific Styles */
+.job-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 16px 16px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+  
+  .p-card-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  }
+}
+
+/* Loading Spinner */
+.p-progress-spinner {
+  .p-progress-spinner-circle {
+    stroke: #667eea;
+    filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+  }
+}
+
+/* Utility Classes */
+.gradient-bg {
+  background: var(--primary-gradient);
+}
+
+.glass-effect {
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.shadow-xl {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+/* Text Utilities */
+.text-gradient {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem 0.5rem;
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .p-card .p-card-content {
+    padding: 1.5rem;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-100);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* Animation Classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Focus Styles */
+.p-button:focus,
+.p-inputtext:focus,
+.p-dropdown:focus {
+  outline: none;
+}
+
+/* Print Styles */
+@media print {
+  .navbar-container,
+  .p-button,
+  .p-paginator {
+    display: none !important;
+  }
+} 

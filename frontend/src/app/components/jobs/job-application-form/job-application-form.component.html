@@ -1,0 +1,131 @@
+<!-- Generated with AI assistance - Job Application Form Modal Template -->
+<p-dialog 
+  header="Aplicar al Trabajo"
+  [(visible)]="visible"
+  (onHide)="onDialogHide()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="application-dialog"
+  [style]="{width: '600px'}"
+  [showHeader]="true"
+  [closable]="!submitting">
+  
+  <!-- Job Information Header -->
+  <div class="job-info-header" *ngIf="job">
+    <div class="job-details">
+      <h3 class="job-title">{{ job.title }}</h3>
+      <div class="job-meta">
+        <div class="meta-item">
+          <i class="pi pi-building"></i>
+          <span>{{ job.created_by_name || 'Empresa' }}</span>
+        </div>
+        <div class="meta-item">
+          <i class="pi pi-map-marker"></i>
+          <span>{{ job.location }}</span>
+        </div>
+        <div class="meta-item">
+          <i class="pi pi-euro"></i>
+          <span>{{ formatSalary(job.salary_min, job.salary_max) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Form -->
+  <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" class="application-form">
+    
+    <!-- Cover Letter Field -->
+    <div class="form-group">
+      <label for="cover_letter" class="form-label">
+        <i class="pi pi-file-edit"></i>
+        Carta de Presentación
+        <span class="optional-label">(Opcional)</span>
+      </label>
+      <textarea
+        id="cover_letter"
+        formControlName="cover_letter"
+        pInputTextarea
+        rows="6"
+        cols="30"
+        placeholder="Cuéntanos por qué eres el candidato ideal para este puesto..."
+        class="form-textarea"
+        [class.p-invalid]="isFieldInvalid('cover_letter')"
+        [disabled]="submitting">
+      </textarea>
+      <small class="field-hint">
+        Máximo 2000 caracteres. Aprovecha este espacio para destacar tu experiencia y motivación.
+      </small>
+      <small 
+        class="error-message" 
+        *ngIf="isFieldInvalid('cover_letter')">
+        {{ getFieldError('cover_letter') }}
+      </small>
+    </div>
+
+    <!-- Resume URL Field -->
+    <div class="form-group">
+      <label for="resume_url" class="form-label">
+        <i class="pi pi-link"></i>
+        URL de tu CV
+        <span class="optional-label">(Opcional)</span>
+      </label>
+      <input
+        type="url"
+        id="resume_url"
+        formControlName="resume_url"
+        pInputText
+        placeholder="https://ejemplo.com/mi-cv.pdf"
+        class="form-input"
+        [class.p-invalid]="isFieldInvalid('resume_url')"
+        [disabled]="submitting">
+      <small class="field-hint">
+        Enlace a tu CV en Google Drive, Dropbox, LinkedIn, etc.
+      </small>
+      <small 
+        class="error-message" 
+        *ngIf="isFieldInvalid('resume_url')">
+        {{ getFieldError('resume_url') }}
+      </small>
+    </div>
+
+    <!-- Important Notice -->
+    <div class="notice-box">
+      <div class="notice-icon">
+        <i class="pi pi-info-circle"></i>
+      </div>
+      <div class="notice-content">
+        <h4>Información importante</h4>
+        <ul>
+          <li>Tu aplicación será revisada por el empleador</li>
+          <li>Recibirás notificaciones sobre el estado de tu aplicación</li>
+          <li>Puedes ver el progreso en "Mis Aplicaciones"</li>
+        </ul>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Dialog Actions -->
+  <ng-template pTemplate="footer">
+    <div class="dialog-actions">
+      <p-button 
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-text cancel-button"
+        (onClick)="onDialogHide()"
+        [disabled]="submitting">
+      </p-button>
+      
+      <p-button 
+        label="Enviar Aplicación"
+        icon="pi pi-send"
+        styleClass="submit-button"
+        (onClick)="onSubmit()"
+        [loading]="submitting"
+        [disabled]="applicationForm.invalid || submitting">
+      </p-button>
+    </div>
+  </ng-template>
+
+</p-dialog> 

@@ -1,0 +1,313 @@
+/* Generated with AI assistance - Job Application Form Modal Styles */
+
+// Dialog overrides
+:host ::ng-deep {
+  .application-dialog {
+    .p-dialog-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      color: white !important;
+      padding: 1.5rem 2rem !important;
+      border-radius: 20px 20px 0 0 !important;
+      
+      .p-dialog-title {
+        font-weight: 700 !important;
+        font-size: 1.3rem !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+      }
+      
+      .p-dialog-header-icon {
+        color: white !important;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.2) !important;
+        }
+      }
+    }
+    
+    .p-dialog-content {
+      padding: 0 !important;
+      border-radius: 0 0 20px 20px !important;
+      background: white !important;
+    }
+    
+    .p-dialog-footer {
+      padding: 0 !important;
+      border: none !important;
+      background: transparent !important;
+    }
+  }
+}
+
+// Job Information Header
+.job-info-header {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 1px solid #e5e7eb;
+  
+  .job-details {
+    .job-title {
+      margin: 0 0 1rem 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.3;
+    }
+    
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        font-weight: 500;
+        
+        i {
+          color: #667eea;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// Application Form
+.application-form {
+  padding: 2rem;
+  
+  .form-group {
+    margin-bottom: 2rem;
+    
+    .form-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      
+      i {
+        color: #667eea;
+        font-size: 1.1rem;
+      }
+      
+      .optional-label {
+        color: #9ca3af;
+        font-weight: 400;
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+    }
+    
+    .form-textarea,
+    .form-input {
+      width: 100% !important;
+      padding: 0.875rem 1rem !important;
+      border: 2px solid #e5e7eb !important;
+      border-radius: 12px !important;
+      font-size: 0.95rem !important;
+      transition: all 0.3s ease !important;
+      background: #ffffff !important;
+      font-family: inherit !important;
+      
+      &:focus {
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        outline: none !important;
+      }
+      
+      &.p-invalid {
+        border-color: #ef4444 !important;
+        
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+      }
+      
+      &::placeholder {
+        color: #9ca3af !important;
+        font-style: italic !important;
+      }
+      
+      &:disabled {
+        background: #f9fafb !important;
+        color: #6b7280 !important;
+        cursor: not-allowed !important;
+      }
+    }
+    
+    .form-textarea {
+      resize: vertical !important;
+      min-height: 120px !important;
+      line-height: 1.6 !important;
+    }
+    
+    .field-hint {
+      display: block;
+      margin-top: 0.5rem;
+      color: #6b7280;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    
+    .error-message {
+      display: block;
+      margin-top: 0.5rem;
+      color: #ef4444;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}
+
+// Notice Box
+.notice-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  
+  .notice-icon {
+    flex-shrink: 0;
+    
+    i {
+      font-size: 1.5rem;
+      color: #0284c7;
+    }
+  }
+  
+  .notice-content {
+    flex: 1;
+    
+    h4 {
+      margin: 0 0 0.75rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    
+    ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: #374151;
+      
+      li {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Dialog Actions
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: #f8fafc;
+  border-radius: 0 0 20px 20px;
+}
+
+// Button Styles
+:host ::ng-deep {
+  .cancel-button {
+    color: #6b7280 !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+    
+    &:hover {
+      background: rgba(107, 114, 128, 0.1) !important;
+      color: #374151 !important;
+    }
+    
+    &:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+    }
+  }
+  
+  .submit-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+    }
+    
+    &:disabled {
+      opacity: 0.6 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    
+    .p-button-loading-icon {
+      margin-right: 0.5rem !important;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  :host ::ng-deep .application-dialog {
+    .p-dialog {
+      width: 95vw !important;
+      margin: 1rem !important;
+    }
+  }
+  
+  .job-info-header {
+    padding: 1rem 1.5rem;
+    
+    .job-meta {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+  }
+  
+  .application-form {
+    padding: 1.5rem;
+  }
+  
+  .dialog-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    
+    button {
+      width: 100% !important;
+    }
+  }
+  
+  .notice-box {
+    flex-direction: column;
+    text-align: center;
+    
+    .notice-icon {
+      align-self: center;
+    }
+  }
+} 

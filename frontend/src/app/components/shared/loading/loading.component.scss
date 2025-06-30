@@ -1,0 +1,80 @@
+/* Generated with AI assistance - Modern loading component styles */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  gap: 1.5rem;
+  
+  .loading-spinner {
+    position: relative;
+    
+    ::ng-deep .p-progress-spinner-circle {
+      stroke: #667eea;
+      stroke-linecap: round;
+      animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    
+    // Add a subtle glow effect
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      animation: pulse 2s ease-in-out infinite;
+      z-index: -1;
+    }
+  }
+  
+  .loading-text {
+    span {
+      color: #64748b;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      animation: fade 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -125;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+} 
