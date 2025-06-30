@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Backend Django (Desarrollo)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: jobportal_backend_dev
+    restart: unless-stopped
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=dev-secret-key-not-for-production
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend,0.0.0.0
+    volumes:
+      - ./backend:/app
+      - backend_static:/app/staticfiles
+      - backend_media:/app/media
+    ports:
+      - "8000:8000"
+    networks:
+      - jobportal_network
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  # Frontend Angular (Desarrollo con hot-reload)
+  frontend-dev:
+    image: node:18-alpine
+    container_name: jobportal_frontend_dev
+    working_dir: /app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - jobportal_network
+    command: >
+      sh -c "npm install &&
+             npm start -- --host 0.0.0.0 --port 4200 --poll 2000"
+
+volumes:
+  backend_static:
+    driver: local
+  backend_media:
+    driver: local
+
+networks:
+  jobportal_network:
+    driver: bridge 
